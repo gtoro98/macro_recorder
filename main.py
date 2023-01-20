@@ -93,8 +93,6 @@ window = sg.Window('Window Title', layout)
 recording = False
 while True:
     event, values = window.read()
-    recordings = os.listdir('./data')
-    window['combo'].update(values=recordings)
 
     if event == sg.WIN_CLOSED or event == 'Cancel': # if user closes window or clicks cancel
         break
@@ -119,6 +117,9 @@ while True:
             recording = False
             with open('data/{}.txt'.format(name_of_recording), 'w') as outfile:
                 json.dump(storage, outfile)
+                
+            recordings = os.listdir('./data')
+            window['combo'].update(values=recordings)
             mouse_listener.stop()
             keyboard_listener.stop()
     
